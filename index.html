@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="stylesheet" href="./css/index.css">
+    <title>注册新用户</title>
+    <script src="./js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript">
+		//199010121李冬雨
+		$(()=>{
+            // 用户名校验
+            $("#username").focus(function(){
+                $(".notice:eq(0)").text("");
+            })
+            $("#username").blur(function(){
+                if($(this).val()==""){
+                    $(".notice:eq(0)").addClass('notice-wrong').text("用户名或登录名不能为空");
+                }
+            });
+
+            // 密码校验
+            $("#password").focus(function(){
+                $(".notice:eq(1)").text("");
+            })
+            $("#password").blur(function(){
+                $(".notice:eq(1)").removeClass('notice-wrong').removeClass('notice-right');
+                let reg = /^[\w]{8,20}$/;
+                let reg1 = /(?!^[a-zA-Z]+$)(?!^[0-9]+$)(?!^[_]+$)^\S{8,20}$/;
+                if($(this).val()==""){
+                    $(".notice:eq(1)").addClass('notice-wrong').text("密码不能为空");
+                }
+                else if(!reg.test($(this).val())){
+                    $(".notice:eq(1)").addClass('notice-wrong').text("密码长度必须在8~20位之间");
+                }
+                else if(!reg1.test($(this).val())){
+                    $(".notice:eq(1)").addClass('notice-wrong').text("密码至少由数字、字母或下划线其中两种组成");
+                }
+                else{
+                    $(".notice:eq(1)").addClass('notice-right').text("密码正确");
+                }
+            });
+            $("#password").bind('input propertychange',function(){
+                let reg = /^[\w]*$/;
+                if(!reg.test($(this).val())){
+                    $(this).val("");
+                    $(".notice:eq(1)").addClass('notice-wrong').text("密码只能是数字、字母和_其中一种");
+                }
+            });
+
+            // 确认密码校验
+            $("#ensurepsd").focus(function(){
+                $(".notice:eq(2)").text("");
+            })
+            $("#ensurepsd").blur(function(){
+                $(".notice:eq(2)").removeClass('notice-wrong').removeClass('notice-right');
+                let reg = /^[\w]{8,20}$/;
+                if($(this).val()==""){
+                    $(".notice:eq(2)").addClass('notice-wrong').text("密码不能为空");
+                }
+                else if(!reg.test($(this).val())){
+                    $(".notice:eq(2)").addClass('notice-wrong').text("密码长度必须在8~20位之间");
+                }
+                else if($("#password").val()!==$("#ensurepsd").val()){
+                    $(".notice:eq(2)").addClass('notice-wrong').text("两次输入密码不一致");
+                }
+                else{
+                    $(".notice:eq(2)").addClass('notice-right').text("密码正确");
+                }
+            });
+            $("#ensurepsd").bind('input propertychange',function(){
+                let reg = /^[\w]*$/;
+                if(!reg.test($(this).val())){
+                    $(this).val("");
+                    $(".notice:eq(2)").addClass('notice-wrong').text("密码只能是数字、字母和_其中一种");
+                }
+            });
+  
+            // 手机号校验
+            $("#phone").focus(function(){
+                $(".notice:eq(3)").text("");
+            })
+            $("#phone").blur(function(){
+                if($(this).val()==""){
+                    $(".notice:eq(3)").addClass('notice-wrong').text("手机号不能为空");
+                }
+                let exp = /^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/;
+                if(($(this).val()!=='')&&(!exp.test($(this).val()))){
+                    $(".notice:eq(3)").addClass('notice-wrong').text("请输入正确的手机号");
+                }
+            });
+            $("#phone").bind('input propertychange',function(){
+                let reg = /^[0-9]*$/;
+                if(!reg.test($(this).val())){
+                    $(this).val("");
+                    $(".notice:eq(3)").addClass('notice-wrong').text("手机号码只能是数字");
+                }
+            });
+
+            // 验证码
+            let randomArr = ['A','a','B','b','0','C','c','D','d','1','E','e','F','f',
+                            '2','G','g','H','h','3','I','i','J','j','4','K','k','L',
+                            'l','5','M','m','N','n','6','O','o','P','p','7','Q','q',
+                            'R','r','8','S','s','T','t','9','U','u','V','v','W','w',
+                            'X','x','Y','y','Z','z'];
+            let num = 4, iniStr = '';
+            for(let i = 0; i < num; i++){
+                iniStr += randomArr[Math.floor(Math.random()*62)];
+            }
+            $("#securityCodeText").text(iniStr);
+            $("#securityCodeText").click(function(){
+                let str = '';
+                for(let i = 0; i < num; i++){
+                    str += randomArr[Math.floor(Math.random()*62)];
+                }
+                $("#securityCodeText").text(str);
+            });
+            $("#securityCode").focus(function(){
+                $(".notice:eq(4)").text("");
+            })
+            $("#securityCode").blur(function(){
+                if(($("#securityCode").val()!=='')&&($(this).val().toUpperCase()!==$("#securityCodeText").text().toUpperCase())){
+                    $(".notice:eq(4)").addClass('notice-wrong').text("验证码错误");
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+	<div class="subject">
+		<video autoplay muted loop plays-inline class="back-video">
+		    <source src="./mp4/video.mp4" type="video/mp4">
+		</video>
+		<div class="box">
+			<form id="register" action="#" method="post">
+				<div class="landing">
+				    <span></span>
+				    <span></span>
+				    <span></span>
+				    <span></span>
+				    <span></span>
+				    <span></span>
+				    <span></span>
+				    <span></span>
+				    <span></span>
+				</div>
+			    <div class="down">
+					<div class="container">
+					    <div class="input">
+					        <label for="username">用户名</label>
+					        <input type="text" id="username" name="username" placeholder="您的用户名或登录名">
+					    </div>
+					    <span class="notice"></span>
+					</div>
+					<div class="container">
+					    <div class="input ">
+					        <label for="password">密码</label>
+					        <input type="password" id="password" name="password" placeholder="建议至少使用两种字符组合">
+					    </div>
+					    <span class="notice"></span>
+					</div>
+					<div class="container">
+					    <div class="input">
+					        <label for="ensurepsd">确认密码</label>
+					        <input type="password" id="ensurepsd" name="ensurepsd" placeholder="请再次输入密码">
+					    </div>
+					    <span class="notice"></span>
+					</div>
+					<div class="container">
+					    <div class="input">
+					        <label for="phone"><select title="号码区号" name="district" id="district">
+					            <option value="中国 0086">中国 0086</option>
+					            <option value="美国 001">美国 001</option>
+					            <option value="法国 0033">法国 0033</option>
+					            <option value="澳大利亚 0061">澳大利亚 0061</option>
+					        </select></label>
+					        <input type="text" id="phone" name="phone" placeholder="请填写合法手机号">
+					    </div>
+					    <span class="notice"></span>
+					</div>
+					<div class="container">
+					    <div class="input">
+					        <label for="securityCode">验证码</label>
+					        <input type="text" id="securityCode" name="securityCode" placeholder="请输入验证码">
+					        <span id="securityCodeText"></span>
+					    </div>
+					    <span class="notice"></span>
+					</div>
+					<div class="v">
+					    <div class="root">
+					        <input type="checkbox">阅读并同意
+					        <a href="#">《用户注册协议》</a>
+					        <a href="#">《隐私政策》</a>
+					    </div>
+					</div>
+					<div class="input submit">
+					    <input type="submit" id="submit" value="立即注册">
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,228 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.subject{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 幼圆;
+}
+/*背景播放视频*/
+.back-video{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+}
+@media (min-aspect-ratio:16/9){
+    .back-video{
+        width: 100%;
+        height: auto;
+    }
+}
+@media (max-aspect-ratio:16/9){
+    .back-video{
+        width: auto;
+        height: 100%;
+    }
+}
+/*旋转光线*/
+.box{
+    position: relative;
+    width: 480px;
+    height: 650px;
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.box::before{
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 480px;
+    height: 650px;
+    background: linear-gradient(0deg,transparent,rgb(255, 0, 200),rgb(255, 0, 200));
+    transform-origin: bottom right;
+    animation: animate 6s linear infinite;
+}
+.box::after{
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 480px;
+    height: 650px;
+    background: linear-gradient(0deg,transparent,rgb(255, 0, 200),rgb(255, 0, 200));
+    transform-origin: bottom right;
+    animation: animate 6s linear infinite;
+    animation-delay: -3s;
+}
+@keyframes animate{
+    0%{
+        transform: rotate(0deg);
+    }
+    100%{
+        transform: rotate(360deg);
+    }
+}
+/*覆盖光线*/
+#register{
+    position: absolute;
+    inset: 2px;
+    border-radius: 8px;
+    background: rgb(255, 248, 252);
+    z-index: 10;
+    padding: 50px 40px;
+    display: flex;
+    flex-direction: column;
+}
+.landing{
+    position: absolute;
+    left: 50%;
+    margin-left: -40px;
+    width: 80px;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+}
+.landing span{
+    --c:plum;
+    --h:50%;
+    --t:25%;
+    background-color: var(--c);
+    width: 5px;
+    border-radius: 10px;
+    position: relative;
+    height: var(--h);
+    top: var(--t);
+    animation: beating 1.5s infinite;
+}
+.landing span:nth-child(1),
+.landing span:nth-child(9){
+    --c:rgb(216, 73, 255);
+    --h:15px;
+    --t:11px;
+}
+.landing span:nth-child(2),
+.landing span:nth-child(8){
+    --c:rgb(90, 192, 255);
+    --h:30px;
+    --t:3px;
+}
+.landing span:nth-child(3),
+.landing span:nth-child(7){
+    --c:rgb(255, 35, 185);
+    --h:40px;
+    --t:0;
+}
+.landing span:nth-child(4),
+.landing span:nth-child(6){
+    --c:rgb(255, 221, 28);
+    --h:45px;
+    --t:4px;
+}
+.landing span:nth-child(5){
+    --c:rgb(255, 148, 189);
+    --h:47px;
+    --t:8px;
+}
+@keyframes beating{
+    0%,30%{
+        height: var(--h);
+        top: var(--t);
+        background-color: var(--c);
+        filter: blur(0);
+    }
+    60%,70%{
+        height: 50%;
+        top: 25%;
+        background-color: rgb(255, 185, 232);
+        filter: blur(2px);
+    }
+}
+/*内容*/
+.down{
+    height: 380px;
+    width: 300px;
+    margin: 85px 0 0 0;
+}
+.container{
+	margin-bottom: 25px;
+}
+a{
+	text-decoration: none;
+	color: blue;
+}
+.input{
+	display: inline-block;
+	border: 2px #ccc solid;
+	width: 390px;
+	height: 100%;
+	line-height: 40px;
+}
+.input label{
+	display: inline-block;
+	width: 120px;
+	height: 100%;
+	text-align: center;
+	line-height: 40px;
+}
+.input input{
+	border: none;
+	width: 160px;
+	height: 38px;
+}
+.input input:focus{
+	outline: none;
+}
+#district{
+	border: none;
+	height: 40px;
+	font-size: 16px;
+}
+#district:focus{
+	outline: none;
+}
+#district option{
+	height: 40px;
+	text-align: center;
+}
+#submit{
+	width: 100%;
+	background-color: rgb(255, 148, 189);
+	color: white;
+}
+.submit{
+	border: none;
+}
+.root{
+	margin-bottom: 25px;
+}
+#securityCodeText{
+	display: inline-block;
+	width: 80px;
+	height: 100%;
+	background-color: rgb(215, 225, 255);
+	color: black;
+	text-align: center;
+}
+.notice{
+	margin-left: 10px;
+	width: 340px;
+	height: inherit;
+	font-weight: bold;
+}
+.notice-right{
+	color: green;
+}
+.notice-wrong{
+	color: red;
+}
+.root a{
+	font-size: 0.85em;
+	color: #f3aaff;
+}
